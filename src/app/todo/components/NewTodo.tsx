@@ -1,9 +1,17 @@
-import React, { useState } from "react";
+"use client";
+
+import React from "react";
 import { AddProps } from "../types/types";
 
 const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
   return (
-    <div className="flex items-center mb-4">
+    <form
+      className="flex items-center mb-4"
+      onSubmit={(e) => {
+        e.preventDefault();
+        handleAdd(task);
+      }}
+    >
       <label htmlFor="todo">
         <input
           type="text"
@@ -14,13 +22,13 @@ const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
         />
       </label>
 
-      <input
-        type="button"
-        value="Add Todo"
+      <button
+        type="submit"
         className="text-2xl font-bold rounded-4xl p-3 bg-cyan-200"
-        onClick={() => handleAdd(task)}
-      />
-    </div>
+      >
+        Add Todo
+      </button>
+    </form>
   );
 };
 

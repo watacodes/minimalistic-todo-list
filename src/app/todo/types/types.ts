@@ -1,9 +1,11 @@
 import { Dispatch, SetStateAction } from "react";
 
+export type AddHandler = (task: string) => void;
+
 export type AddProps = {
-  handleAdd: (text: string) => void;
-  setTask: Dispatch<SetStateAction<string>>;
+  handleAdd: AddHandler;
   task: string;
+  setTask: Dispatch<SetStateAction<string>>;
 };
 
 export type TaskProps = {

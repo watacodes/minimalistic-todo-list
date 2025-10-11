@@ -3,15 +3,15 @@
 import { useState } from "react";
 import NewTodo from "./components/NewTodo";
 import { TodoList } from "./components/TodoList";
-import { TaskProps } from "./types/types";
+import { AddHandler, TaskProps } from "./types/types";
 
 export const TodoPage = () => {
   const [todos, setTodos] = useState<TaskProps[]>([]);
   const [task, setTask] = useState<string>("");
 
-  const handleAdd = (text: string) => {
-    if (text.trim() === "" || text.length < 4) return;
-    const newTodo = { item: text.trim(), id: crypto.randomUUID(), done: false };
+  const handleAdd: AddHandler = (task) => {
+    if (task.trim() === "" || task.length < 4) return;
+    const newTodo = { item: task.trim(), id: crypto.randomUUID(), done: false };
     setTodos((prev) => [...prev, newTodo]);
     setTask("");
   };

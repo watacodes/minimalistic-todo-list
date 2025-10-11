@@ -1,3 +1,5 @@
+"use client";
+
 import { TodoPage } from "./todo/page";
 
 const Home: React.FC = () => {
