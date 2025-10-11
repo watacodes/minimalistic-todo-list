@@ -16,7 +16,7 @@ const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
         <input
           type="text"
           id="todo"
-          className="rounded-4xl text-4xl bg-amber-50 p-2 mx-4 border-amber-100 border-2"
+          className="rounded-4xl text-3xl bg-amber-50 px-16 py-2 mx-4 border-amber-100 border-2"
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
@@ -24,7 +24,7 @@ const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
 
       <button
         type="submit"
-        className="text-2xl font-bold rounded-4xl p-3 bg-cyan-200"
+        className="text-lg text-white font-bold rounded-4xl p-3.5 bg-sky-500 hover:cursor-pointer hover:bg-sky-700"
       >
         Add Todo
       </button>

@@ -21,7 +21,7 @@ export const TodoPage = () => {
       <h1 className="p-10">Minimalistic Todo List</h1>
       <NewTodo handleAdd={handleAdd} task={task} setTask={setTask} />
       {!todos.length ? (
-        <div>Start adding your task!</div>
+        <div>Start adding your tasks ✨</div>
       ) : (
         <TodoList todo={todos} />
       )}
