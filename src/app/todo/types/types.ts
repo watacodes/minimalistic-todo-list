@@ -16,9 +16,10 @@ export type TaskProps = {
 
 export type ItemProps = {
   id: string;
-  checked: boolean;
+  done: boolean;
 };
 
 export type TodoListProps = {
   todo: TaskProps[];
+  setTodo: Dispatch<SetStateAction<TaskProps[]>>;
 };

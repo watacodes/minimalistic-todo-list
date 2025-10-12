@@ -6,17 +6,17 @@ import { AddProps } from "../types/types";
 const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
   return (
     <form
-      className="flex items-center mb-4"
+      className="flex items-center mb-10"
       onSubmit={(e) => {
         e.preventDefault();
         handleAdd(task);
       }}
     >
-      <label htmlFor="todo">
+      <label htmlFor="addTodo">
         <input
           type="text"
-          id="todo"
-          className="rounded-4xl text-3xl bg-amber-50 px-16 py-2 mx-4 border-amber-100 border-2"
+          id="addTodo"
+          className="rounded-4xl text-3xl bg-amber-200 px-16 py-2 mx-4 border-amber-400 border-2 focus: outline-amber-400"
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />

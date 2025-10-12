@@ -1,50 +1,32 @@
 "use client";
 
-import { useState } from "react";
-
 import { ItemProps, TodoListProps } from "../types/types";
 
-export const TodoList = ({ todo }: TodoListProps) => {
-  // Sets a default Set object, which only takes the unique set of items?
-
-  const [completedIds, setCompletedIds] = useState<Set<string>>(new Set());
-
-  // Toggle handler takes the id of the item and the checked status.
-  // prev stands for the newly added entries?
-  // if the box is clicked (e.target.checked), along with the id of the item, it will be passed into handleToggle.
-  // declare the next and make a new Set of id and checked?
-  // if checked is true, its id will be added to next (.add is a unique method for Set objects?)
-  // if not, delete the id of next (but not sure why we need this condition)
-  // return next = new Set of an id?
-
-  const handleToggle = ({ id, checked }: ItemProps) => {
-    setCompletedIds((prev) => {
-      const next = new Set(prev);
-      if (checked) next.add(id);
-      else next.delete(id);
-      return next;
-    });
+export const TodoList = ({ todo, setTodo }: TodoListProps) => {
+  const handleToggle = ({ id, done }: ItemProps) => {
+    setTodo((prev) =>
+      prev.map((task) =>
+        task.id === id ? { ...task, done: !task.done } : task
+      )
+    );
   };
 
   return (
-    <div className="flex flex-col">
-      {todo.map(({ item, id }) => {
-        const isDone = completedIds.has(id);
+    <div className="flex flex-col border-2 border-gray-400 rounded-md w-full">
+      {todo.map(({ item, id, done }) => {
         return (
-          <div className="flex items-center" key={id}>
+          <div className="flex items-center " key={id}>
             <input
               type="checkbox"
               value={item}
-              name={item}
-              checked={isDone}
+              id={id}
+              checked={done}
               className="m-5 flex items-center"
-              onChange={(e) => handleToggle({ id, checked: e.target.checked })}
+              onChange={(e) => handleToggle({ id, done: e.target.checked })}
             />
             <label
               htmlFor={id}
-              className={`flex items-center ${
-                isDone ? "line-through" : "none"
-              }`}
+              className={`flex items-center ${done ? "line-through" : "none"}`}
             >
               {item}
             </label>
