@@ -1,8 +1,9 @@
 "use client";
 
 import { ItemProps, TodoListProps } from "../types/types";
+import { Button } from "@/components/ui/button";
 
-export const TodoList = ({ todo, setTodo }: TodoListProps) => {
+export const TodoList = ({ todo, setTodo, handleDelete }: TodoListProps) => {
   const handleToggle = ({ id, done }: ItemProps) => {
     setTodo((prev) =>
       prev.map((task) =>
@@ -26,10 +27,19 @@ export const TodoList = ({ todo, setTodo }: TodoListProps) => {
             />
             <label
               htmlFor={id}
-              className={`flex items-center ${done ? "line-through" : "none"}`}
+              className={`flex items-center ${
+                done ? "line-through" : "none"
+              } mr-4 h-max`}
             >
               {item}
             </label>
+            <Button
+              variant="outline"
+              aria-label="remove"
+              onClick={() => handleDelete(id)}
+            >
+              Remove
+            </Button>
           </div>
         );
       })}

@@ -1,6 +1,5 @@
 "use client";
 
-import React from "react";
 import { AddProps } from "../types/types";
 
 const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
