@@ -23,6 +23,6 @@ export type ItemProps = {
 
 export type TodoListProps = {
   handleDelete: DeleteHandler;
-  setTodo: Dispatch<SetStateAction<TaskProps[]>>;
-  todo: TaskProps[];
+  setTodos: Dispatch<SetStateAction<TaskProps[]>>;
+  todos: TaskProps[];
 };

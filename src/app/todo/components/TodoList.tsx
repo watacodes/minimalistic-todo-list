@@ -4,9 +4,9 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { ItemProps, TodoListProps } from "../types/types";
 import { Button } from "@/components/ui/button";
 
-export const TodoList = ({ todo, setTodo, handleDelete }: TodoListProps) => {
+const TodoList = ({ todos, setTodos, handleDelete }: TodoListProps) => {
   const handleToggle = ({ id, done }: ItemProps) => {
-    setTodo((prev) =>
+    setTodos((prev) =>
       prev.map((task) =>
         task.id === id ? { ...task, done: !task.done } : task
       )
@@ -15,7 +15,7 @@ export const TodoList = ({ todo, setTodo, handleDelete }: TodoListProps) => {
 
   return (
     <div className="flex flex-col border-2 border-gray-400 rounded-md w-full p-2">
-      {todo.map(({ item, id, done }) => {
+      {todos.map(({ item, id, done }) => {
         return (
           <div className="flex items-center " key={id}>
             <Checkbox
@@ -47,3 +47,5 @@ export const TodoList = ({ todo, setTodo, handleDelete }: TodoListProps) => {
     </div>
   );
 };
+
+export default TodoList;

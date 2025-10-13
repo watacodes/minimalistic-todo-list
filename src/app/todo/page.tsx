@@ -2,10 +2,12 @@
 
 import { useEffect, useState } from "react";
 import NewTodo from "./components/NewTodo";
-import { TodoList } from "./components/TodoList";
+import TodoList from "./components/TodoList";
 import { AddHandler, DeleteHandler, TaskProps } from "./types/types";
+import RemainingTodo from "./components/RemainingTodo";
 
-export const TodoPage: React.FC = () => {
+const TodoPage = () => {
+  const [mounted, setMounted] = useState<boolean>(false);
   const [todos, setTodos] = useState<TaskProps[]>(() => {
     if (typeof window === "undefined") return [];
     const raw = localStorage.getItem("todos");
@@ -13,6 +15,10 @@ export const TodoPage: React.FC = () => {
   });
 
   const [task, setTask] = useState<string>("");
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
@@ -39,8 +45,17 @@ export const TodoPage: React.FC = () => {
       {!todos.length ? (
         <div>Start adding your tasks ✨</div>
       ) : (
-        <TodoList todo={todos} setTodo={setTodos} handleDelete={handleDelete} />
+        <>
+          <RemainingTodo todos={todos} />
+          <TodoList
+            todos={todos}
+            setTodos={setTodos}
+            handleDelete={handleDelete}
+          />
+        </>
       )}
     </div>
   );
 };
+
+export default TodoPage;
