@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { TaskProps } from "../types/types";
 
 type RemainingTodoProps = {
@@ -8,13 +7,7 @@ type RemainingTodoProps = {
 };
 
 const RemainingTodo = ({ todos }: RemainingTodoProps) => {
-  const [remainingTasks, setRemainingTasks] = useState<number>(
-    () => todos.filter((t) => !t.done).length
-  );
-
-  useEffect(() => {
-    setRemainingTasks(todos.filter((t) => !t.done).length);
-  }, [todos]);
+  const remainingTasks = todos.filter((t) => !t.done).length;
 
   return (
     <div className="bg-red-50 mb-4">Remaining Tasks: {remainingTasks}</div>
