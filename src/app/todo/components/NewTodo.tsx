@@ -1,6 +1,7 @@
 "use client";
 
 import { AddProps } from "../types/types";
+import { Button } from "@/components/ui/button";
 
 const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
   return (
@@ -15,18 +16,21 @@ const NewTodo = ({ handleAdd, task, setTask }: AddProps) => {
         <input
           type="text"
           id="addTodo"
-          className="rounded-4xl text-3xl bg-amber-200 px-16 py-2 mx-4 border-amber-400 border-2 focus: outline-amber-400"
+          className="rounded-4xl text-3xl px-16 py-2 mx-4 border-2"
           value={task}
           onChange={(e) => setTask(e.target.value)}
         />
       </label>
 
-      <button
+      <Button
+        variant="outline"
+        size="lg"
+        aria-label="Submit"
         type="submit"
-        className="text-lg text-white font-bold rounded-4xl p-3.5 bg-sky-500 hover:cursor-pointer hover:bg-sky-700"
+        className="py-6 font-bold border-2"
       >
         Add Todo
-      </button>
+      </Button>
     </form>
   );
 };

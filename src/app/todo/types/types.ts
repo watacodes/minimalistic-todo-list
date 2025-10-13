@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
 export type AddHandler = (task: string) => void;
+
 export type DeleteHandler = (id: string) => void;
 
 export type AddProps = {
