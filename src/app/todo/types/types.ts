@@ -1,13 +1,7 @@
 import { Dispatch, SetStateAction } from "react";
 
-export type AddHandler = (task: string) => void;
-
-export type DeleteHandler = (id: string) => void;
-
 export type AddProps = {
-  handleAdd: AddHandler;
-  task: string;
-  setTask: Dispatch<SetStateAction<string>>;
+  handleAdd: (task: string) => void;
 };
 
 export type TaskProps = {
@@ -16,13 +10,8 @@ export type TaskProps = {
   done: boolean;
 };
 
-export type ItemProps = {
-  id: string;
-  done: boolean;
-};
-
 export type TodoListProps = {
-  handleDelete: DeleteHandler;
-  setTodos: Dispatch<SetStateAction<TaskProps[]>>;
+  handleDelete: (id: string) => void;
+  handleToggle: (id: string) => void;
   todos: TaskProps[];
 };

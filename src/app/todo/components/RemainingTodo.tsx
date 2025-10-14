@@ -9,9 +9,7 @@ type RemainingTodoProps = {
 const RemainingTodo = ({ todos }: RemainingTodoProps) => {
   const remainingTasks = todos.filter((t) => !t.done).length;
 
-  return (
-    <div className="bg-red-50 mb-4">Remaining Tasks: {remainingTasks}</div>
-  );
+  return <div className="mb-4">Remaining Tasks: {remainingTasks}</div>;
 };
 
 export default RemainingTodo;
