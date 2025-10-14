@@ -24,6 +24,7 @@ const NewTodo = ({ handleAdd }: AddProps) => {
           className="rounded-4xl text-3xl px-16 py-2 mx-4 border-2"
           value={newTask}
           onChange={(e) => setNewTask(e.target.value)}
+          autoFocus
         />
       </label>
 

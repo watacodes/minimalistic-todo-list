@@ -6,10 +6,10 @@ import { Button } from "@/components/ui/button";
 
 const TodoList = ({ todos, handleToggle, handleDelete }: TodoListProps) => {
   return (
-    <div className="flex flex-col border-2 border-gray-400 rounded-md w-full p-2">
+    <ul className="flex flex-col border-2 border-gray-400 rounded-md w-full p-2">
       {todos.map(({ item, id, done }) => {
         return (
-          <div className="flex items-center " key={id}>
+          <li className="flex items-center " key={id}>
             <Checkbox
               checked={done}
               name={id}
@@ -33,10 +33,10 @@ const TodoList = ({ todos, handleToggle, handleDelete }: TodoListProps) => {
             >
               Remove
             </Button>
-          </div>
+          </li>
         );
       })}
-    </div>
+    </ul>
   );
 };
 
