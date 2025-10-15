@@ -10,7 +10,7 @@ const RemainingTodo = ({ todos }: RemainingTodoProps) => {
   const remainingTasks = todos.filter((t) => !t.done).length;
 
   return (
-    <div className="mb-4" aria-live="polite">
+    <div className="mb-4 text-2xl" aria-live="polite">
       Remaining Tasks: {remainingTasks}
     </div>
   );

@@ -13,3 +13,7 @@ export type TodoListProps = {
   handleToggle: (id: string) => void;
   todos: TodoProps[];
 };
+
+export type FilterProps = {
+  status: "all" | "in-progress" | "completed";
+};

@@ -36,20 +36,22 @@ const TodoPage = () => {
   };
 
   return (
-    <div className="h-dvh flex flex-col items-center p-10 text-5xl">
-      <h1 className="p-10 text-10xl font-bold">Minimalistic Todo List</h1>
+    <div className="h-dvh w-full flex flex-col items-center p-10 text-5xl">
+      <h1 className="p-10 text-4xl font-bold">Minimalistic Todo List</h1>
       <NewTodo handleAdd={handleAdd} />
       {!todos.length ? (
         <div>Start adding your tasks ✨</div>
       ) : (
-        <>
+        <section className="w-3/4">
           <RemainingTodo todos={todos} />
-          <TodoList
-            todos={todos}
-            handleToggle={handleToggle}
-            handleDelete={handleDelete}
-          />
-        </>
+          <div className="">
+            <TodoList
+              todos={todos}
+              handleToggle={handleToggle}
+              handleDelete={handleDelete}
+            />
+          </div>
+        </section>
       )}
     </div>
   );
