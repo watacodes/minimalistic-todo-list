@@ -1,9 +1,9 @@
 "use client";
 
-import { TaskProps } from "../types/types";
+import { TodoProps } from "../types/types";
 
 type RemainingTodoProps = {
-  todos: TaskProps[];
+  todos: TodoProps[];
 };
 
 const RemainingTodo = ({ todos }: RemainingTodoProps) => {

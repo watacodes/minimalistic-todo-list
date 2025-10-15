@@ -1,7 +1,7 @@
 "use client";
 
-import { Checkbox } from "@/components/ui/checkbox";
 import { TodoListProps } from "../types/types";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 
 const TodoList = ({ todos, handleToggle, handleDelete }: TodoListProps) => {

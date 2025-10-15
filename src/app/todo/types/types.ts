@@ -2,7 +2,7 @@ export type AddProps = {
   handleAdd: (task: string) => void;
 };
 
-export type TaskProps = {
+export type TodoProps = {
   item: string;
   id: string;
   done: boolean;
@@ -11,5 +11,5 @@ export type TaskProps = {
 export type TodoListProps = {
   handleDelete: (id: string) => void;
   handleToggle: (id: string) => void;
-  todos: TaskProps[];
+  todos: TodoProps[];
 };

@@ -3,11 +3,11 @@
 import { useEffect, useState } from "react";
 import NewTodo from "./components/NewTodo";
 import TodoList from "./components/TodoList";
-import { TaskProps } from "./types/types";
 import RemainingTodo from "./components/RemainingTodo";
+import { TodoProps } from "./types/types";
 
 const TodoPage = () => {
-  const [todos, setTodos] = useState<TaskProps[]>(() => {
+  const [todos, setTodos] = useState<TodoProps[]>(() => {
     if (typeof window === "undefined") return [];
     const raw = localStorage.getItem("todos");
     return raw ? JSON.parse(raw) : [];
