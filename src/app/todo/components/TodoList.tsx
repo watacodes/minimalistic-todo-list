@@ -1,20 +1,37 @@
 "use client";
 
-import { useState } from "react";
-import { TodoListProps } from "../types/types";
+import { useMemo } from "react";
+import { FilterProps, TodoListProps, TodoProps } from "../types/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import Filter from "./FilterButtons";
-import { FilterProps } from "../types/types";
 
-const TodoList = ({ todos, handleToggle, handleDelete }: TodoListProps) => {
-  // const [filterStatus, setFilterStatus] = useState<FilterProps>("all");
+const applyFilter = (todos: TodoProps[], status: FilterProps) => {
+  switch (status) {
+    case "in-progress":
+      return todos.filter((t) => !t.done);
+    case "done":
+      return todos.filter((t) => t.done);
+    default:
+      return todos;
+  }
+};
+
+const TodoList = ({
+  todos,
+  status,
+  handleToggle,
+  handleDelete,
+}: TodoListProps) => {
+  const visibleTodos = useMemo(
+    () => applyFilter(todos, status),
+    [todos, status]
+  );
 
   return (
     <div>
-      <Filter />
-      <ul className="flex flex-col w-full border-2 border-gray-400 rounded-md p-2">
-        {todos.map(({ item, id, done }) => {
+      <ul className="flex flex-col w-full  border-gray-400 rounded-md p-2">
+        {!visibleTodos.length && <>Nothing to display.</>}
+        {visibleTodos.map(({ item, id, done }) => {
           return (
             <li className="flex items-center " key={id}>
               <Checkbox
@@ -27,7 +44,7 @@ const TodoList = ({ todos, handleToggle, handleDelete }: TodoListProps) => {
 
               <label
                 htmlFor={id}
-                className={`flex items-center mr-4 h-max${
+                className={`flex items-center mr-4 h-max ${
                   done ? "line-through" : ""
                 }`}
               >

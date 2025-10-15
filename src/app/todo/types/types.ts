@@ -1,3 +1,5 @@
+export type FilterProps = "all" | "in-progress" | "done";
+
 export type AddProps = {
   handleAdd: (task: string) => void;
 };
@@ -12,8 +14,5 @@ export type TodoListProps = {
   handleDelete: (id: string) => void;
   handleToggle: (id: string) => void;
   todos: TodoProps[];
-};
-
-export type FilterProps = {
-  status: "all" | "in-progress" | "completed";
+  status: FilterProps;
 };

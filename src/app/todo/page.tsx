@@ -4,7 +4,8 @@ import { useEffect, useState } from "react";
 import NewTodo from "./components/NewTodo";
 import TodoList from "./components/TodoList";
 import RemainingTodo from "./components/RemainingTodo";
-import { TodoProps } from "./types/types";
+import FilterButtons from "./components/FilterButtons";
+import { FilterProps, TodoProps } from "./types/types";
 
 const TodoPage = () => {
   const [todos, setTodos] = useState<TodoProps[]>(() => {
@@ -13,9 +14,16 @@ const TodoPage = () => {
     return raw ? JSON.parse(raw) : [];
   });
 
+  const [status, setStatus] = useState<FilterProps>(() => {
+    if (typeof window === "undefined") return "all";
+    const raw = localStorage.getItem("status");
+    return raw ? JSON.parse(raw) : "all";
+  });
+
   useEffect(() => {
     localStorage.setItem("todos", JSON.stringify(todos));
-  }, [todos]);
+    localStorage.setItem("status", JSON.stringify(status));
+  }, [todos, status]);
 
   const handleAdd = (task: string) => {
     if (task.trim() === "" || task.length < 4) return;
@@ -45,8 +53,10 @@ const TodoPage = () => {
         <section className="w-3/4">
           <RemainingTodo todos={todos} />
           <div className="">
+            <FilterButtons status={status} setStatus={setStatus} />
             <TodoList
               todos={todos}
+              status={status}
               handleToggle={handleToggle}
               handleDelete={handleDelete}
             />
