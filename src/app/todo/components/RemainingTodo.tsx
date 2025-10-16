@@ -1,6 +1,6 @@
 "use client";
 
-import { TodoProps } from "../types/types";
+import { TodoProps } from "../../types/types";
 
 type RemainingTodoProps = {
   todos: TodoProps[];

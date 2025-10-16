@@ -1,7 +1,7 @@
 "use client";
 
 import { useMemo } from "react";
-import { FilterProps, TodoListProps, TodoProps } from "../types/types";
+import { FilterProps, TodoListProps, TodoProps } from "../../types/types";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
 

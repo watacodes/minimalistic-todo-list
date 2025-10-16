@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { AddProps } from "../types/types";
+import { AddProps } from "../../types/types";
 import { Button } from "@/components/ui/button";
 
 const NewTodo = ({ handleAdd }: AddProps) => {
