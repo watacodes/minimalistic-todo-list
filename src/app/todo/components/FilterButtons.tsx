@@ -20,7 +20,7 @@ const FilterButtons = ({ status, setStatus }: Props) => {
         type="single"
         value={status}
         onValueChange={handleStatusChange}
-        className="flex space-x-1 mb-4 w-1/3 rounded-md"
+        className="flex mb-4 w-1/3 rounded-md"
       >
         <ToggleGroupItem
           variant="outline"

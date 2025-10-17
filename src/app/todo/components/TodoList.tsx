@@ -33,30 +33,37 @@ const TodoList = ({
         {!visibleTodos.length && <>Nothing to display.</>}
         {visibleTodos.map(({ item, id, done }) => {
           return (
-            <li className="flex items-center " key={id}>
-              <Checkbox
-                checked={done}
-                name={id}
-                id={id}
-                className="m-5"
-                onCheckedChange={() => handleToggle(id)}
-              />
+            <li className="flex items-center justify-between" key={id}>
+              <div className="flex">
+                <Checkbox
+                  checked={done}
+                  name={id}
+                  id={id}
+                  className="m-5"
+                  onCheckedChange={() => handleToggle(id)}
+                />
 
-              <label
-                htmlFor={id}
-                className={`flex items-center mr-4 h-max ${
-                  done ? "line-through" : ""
-                }`}
-              >
-                {item}
-              </label>
-              <Button
-                variant="outline"
-                aria-label="remove"
-                onClick={() => handleDelete(id)}
-              >
-                Remove
-              </Button>
+                <label
+                  htmlFor={id}
+                  className={`flex items-center mr-4 h-max ${
+                    done ? "line-through" : ""
+                  }`}
+                >
+                  {item}
+                </label>
+              </div>
+              <div>
+                <Button variant="outline" aria-label="edit">
+                  Edit
+                </Button>
+                <Button
+                  variant="outline"
+                  aria-label="remove"
+                  onClick={() => handleDelete(id)}
+                >
+                  Remove
+                </Button>
+              </div>
             </li>
           );
         })}
