@@ -1,17 +1,15 @@
-"use client";
-
-import { useState, useEffect } from "react";
-import { TodoProps, FilterProps } from "../types/types";
+import { FilterProps, TodoProps } from "../types/types";
+import { useEffect, useState } from "react";
 
 const useTodos = () => {
   const [todos, setTodos] = useState<TodoProps[]>(() => {
-    if (typeof window === "undefined") return [];
+    if (typeof window === "undefined") return;
     const raw = localStorage.getItem("todos");
     return raw ? JSON.parse(raw) : [];
   });
 
   const [status, setStatus] = useState<FilterProps>(() => {
-    if (typeof window === "undefined") return "all";
+    if (typeof window === "undefined") return;
     const raw = localStorage.getItem("status");
     return raw ? JSON.parse(raw) : "all";
   });
@@ -29,25 +27,16 @@ const useTodos = () => {
   };
 
   const handleDelete = (id: string) => {
-    setTodos((prev) => prev.filter((todo) => todo.id !== id));
+    setTodos((prev) => prev.filter((t) => t.id !== id));
   };
 
   const handleToggle = (id: string) => {
     setTodos((prev) =>
-      prev.map((task) =>
-        task.id === id ? { ...task, done: !task.done } : task
-      )
+      prev.map((t) => (t.id === id ? { ...t, done: !t.done } : t))
     );
   };
 
-  return {
-    todos,
-    status,
-    setStatus,
-    handleAdd,
-    handleDelete,
-    handleToggle,
-  };
+  return { todos, status, setStatus, handleAdd, handleDelete, handleToggle };
 };
 
 export default useTodos;

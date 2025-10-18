@@ -1,20 +1,11 @@
 "use client";
 
 import { useMemo } from "react";
-import { FilterProps, TodoListProps, TodoProps } from "../../types/types";
+import { TodoListProps } from "../../types/types";
+import { applyFilter } from "@/app/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-
-const applyFilter = (todos: TodoProps[], status: FilterProps) => {
-  switch (status) {
-    case "in-progress":
-      return todos.filter((t) => !t.done);
-    case "done":
-      return todos.filter((t) => t.done);
-    default:
-      return todos;
-  }
-};
+import { useBlur } from "@/app/providers/BlurProvider";
 
 const TodoList = ({
   todos,
@@ -26,6 +17,8 @@ const TodoList = ({
     () => applyFilter(todos, status),
     [todos, status]
   );
+
+  const { isBlur, toggleBlur } = useBlur();
 
   return (
     <div>
@@ -53,7 +46,11 @@ const TodoList = ({
                 </label>
               </div>
               <div>
-                <Button variant="outline" aria-label="edit">
+                <Button
+                  variant="outline"
+                  aria-label="edit"
+                  onClick={toggleBlur}
+                >
                   Edit
                 </Button>
                 <Button
