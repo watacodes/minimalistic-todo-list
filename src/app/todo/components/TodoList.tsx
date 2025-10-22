@@ -1,24 +1,21 @@
 "use client";
 
 import { useMemo } from "react";
-import { TodoListProps } from "../../types/types";
+import { useTodos } from "@/app/providers/TodosProvider";
 import { applyFilter } from "@/app/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import { useBlur } from "@/app/providers/BlurProvider";
+import useEdit from "@/app/hooks/useEdit";
 
-const TodoList = ({
-  todos,
-  status,
-  handleToggle,
-  handleDelete,
-}: TodoListProps) => {
+const TodoList = () => {
+  const { todos, status, handleToggle, handleDelete } = useTodos();
+  const { editingId, draft, setDraft, isEditing, handleEdit, handleSave } =
+    useEdit();
+
   const visibleTodos = useMemo(
     () => applyFilter(todos, status),
     [todos, status]
   );
-
-  const { isBlur, toggleBlur } = useBlur();
 
   return (
     <div>
@@ -35,30 +32,47 @@ const TodoList = ({
                   className="m-5"
                   onCheckedChange={() => handleToggle(id)}
                 />
-
-                <label
-                  htmlFor={id}
-                  className={`flex items-center mr-4 h-max ${
-                    done ? "line-through" : ""
-                  }`}
-                >
-                  {item}
-                </label>
+                {editingId === id && isEditing ? (
+                  <input
+                    type="text"
+                    onChange={(e) => setDraft(e.target.value)}
+                    onKeyDown={(e) => handleSave({ id, e })}
+                    value={draft}
+                    className="focus: border-1 focus: rounded-md"
+                    autoFocus
+                  />
+                ) : (
+                  <label
+                    htmlFor={id}
+                    className={`flex items-center mr-4 h-max ${
+                      done ? "line-through" : ""
+                    }`}
+                  >
+                    {item}
+                  </label>
+                )}
               </div>
-              <div>
+              <div className="flex min-w-[160px]">
                 <Button
                   variant="outline"
-                  aria-label="edit"
-                  onClick={toggleBlur}
+                  aria-label="save"
+                  onClick={() =>
+                    isEditing ? handleSave({ id }) : handleEdit(id)
+                  }
+                  className="min-w-[80px] px-2"
                 >
-                  Edit
+                  {isEditing && editingId === id ? "Save" : "Edit"}
                 </Button>
+
                 <Button
                   variant="outline"
                   aria-label="remove"
-                  onClick={() => handleDelete(id)}
+                  onClick={() => {
+                    isEditing ? handleEdit(id) : handleDelete(id);
+                  }}
+                  className="min-w-[80px] px-2"
                 >
-                  Remove
+                  {isEditing && editingId === id ? "Cancel" : "Remove"}
                 </Button>
               </div>
             </li>

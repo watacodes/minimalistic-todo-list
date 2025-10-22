@@ -1,7 +1,11 @@
-import { FilterProps, TodoProps } from "../types/types";
-import { useEffect, useState } from "react";
+"use client";
 
-const useTodos = () => {
+import { createContext, useContext, useState, useEffect } from "react";
+import { FilterProps, TodoProps, TodosContextProps } from "../types/types";
+
+const TodosCtx = createContext<TodosContextProps | null>(null);
+
+export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
   const [todos, setTodos] = useState<TodoProps[]>(() => {
     if (typeof window === "undefined") return;
     const raw = localStorage.getItem("todos");
@@ -36,7 +40,21 @@ const useTodos = () => {
     );
   };
 
-  return { todos, status, setStatus, handleAdd, handleDelete, handleToggle };
+  const value = {
+    todos,
+    setTodos,
+    status,
+    setStatus,
+    handleAdd,
+    handleDelete,
+    handleToggle,
+  };
+
+  return <TodosCtx.Provider value={value}>{children}</TodosCtx.Provider>;
 };
 
-export default useTodos;
+export const useTodos = () => {
+  const ctx = useContext(TodosCtx);
+  if (!ctx) throw new Error("useTodos err");
+  return ctx;
+};

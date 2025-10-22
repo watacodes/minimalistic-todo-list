@@ -1,15 +1,10 @@
 "use client";
 
-import { Dispatch, SetStateAction } from "react";
-import { FilterProps } from "../../types/types";
+import { useTodos } from "@/app/providers/TodosProvider";
 import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 
-type Props = {
-  status: FilterProps;
-  setStatus: Dispatch<SetStateAction<FilterProps>>;
-};
-
-const FilterButtons = ({ status, setStatus }: Props) => {
+const FilterButtons = () => {
+  const { status, setStatus } = useTodos();
   const handleStatusChange = (v: string) => {
     if (v === "all" || v === "in-progress" || v === "done") setStatus(v);
   };

@@ -2,10 +2,6 @@ import { Dispatch, SetStateAction } from "react";
 
 export type FilterProps = "all" | "in-progress" | "done";
 
-export type AddProps = {
-  handleAdd: (task: string) => void;
-};
-
 export type TodoProps = {
   item: string;
   id: string;
@@ -19,8 +15,9 @@ export type TodoListProps = {
   status: FilterProps;
 };
 
-export type useTodosProps = {
+export type TodosContextProps = {
   todos: TodoProps[];
+  setTodos: Dispatch<SetStateAction<TodoProps[]>>;
   status: FilterProps;
   setStatus: Dispatch<SetStateAction<FilterProps>>;
   handleAdd: (task: string) => void;

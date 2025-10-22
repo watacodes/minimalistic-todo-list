@@ -1,12 +1,9 @@
 "use client";
 
-import { TodoProps } from "../../types/types";
+import { useTodos } from "@/app/providers/TodosProvider";
 
-type RemainingTodoProps = {
-  todos: TodoProps[];
-};
-
-const RemainingTodo = ({ todos }: RemainingTodoProps) => {
+const RemainingTodo = () => {
+  const { todos } = useTodos();
   const remainingTasks = todos.filter((t) => !t.done).length;
 
   return (

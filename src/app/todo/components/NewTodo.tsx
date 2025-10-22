@@ -1,10 +1,11 @@
 "use client";
 
 import { FormEvent, useState } from "react";
-import { AddProps } from "../../types/types";
 import { Button } from "@/components/ui/button";
+import { useTodos } from "@/app/providers/TodosProvider";
 
-const NewTodo = ({ handleAdd }: AddProps) => {
+const NewTodo = () => {
+  const { handleAdd } = useTodos();
   const [newTask, setNewTask] = useState<string>("");
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
