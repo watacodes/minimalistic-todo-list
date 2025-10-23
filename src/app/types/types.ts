@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from "react";
 
-export type FilterProps = "all" | "in-progress" | "done";
+export type FilterProps = "in-progress" | "done";
 
 export type TodoProps = {
   item: string;
@@ -9,10 +9,10 @@ export type TodoProps = {
 };
 
 export type TodoListProps = {
-  handleDelete: (id: string) => void;
-  handleToggle: (id: string) => void;
   todos: TodoProps[];
   status: FilterProps;
+  handleDelete: (id: string) => void;
+  handleToggle: (id: string) => void;
 };
 
 export type TodosContextProps = {
@@ -23,4 +23,6 @@ export type TodosContextProps = {
   handleAdd: (task: string) => void;
   handleDelete: (id: string) => void;
   handleToggle: (id: string) => void;
+  remainingTasks: number;
+  completedTasks: number;
 };

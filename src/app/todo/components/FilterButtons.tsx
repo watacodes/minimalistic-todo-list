@@ -6,7 +6,7 @@ import { ToggleGroup, ToggleGroupItem } from "@/components/ui/toggle-group";
 const FilterButtons = () => {
   const { status, setStatus } = useTodos();
   const handleStatusChange = (v: string) => {
-    if (v === "all" || v === "in-progress" || v === "done") setStatus(v);
+    if (v === "in-progress" || v === "done") setStatus(v);
   };
 
   return (
@@ -17,14 +17,6 @@ const FilterButtons = () => {
         onValueChange={handleStatusChange}
         className="flex mb-4 w-1/3 rounded-md"
       >
-        <ToggleGroupItem
-          variant="outline"
-          value="all"
-          className="px-2"
-          aria-label="all"
-        >
-          All
-        </ToggleGroupItem>
         <ToggleGroupItem
           variant="outline"
           value="in-progress"

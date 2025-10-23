@@ -2,10 +2,22 @@
 
 import { createContext, useContext, useState, useEffect } from "react";
 import { FilterProps, TodoProps, TodosContextProps } from "../types/types";
+import useGlobalKey from "../hooks/useGlobalKey";
 
 const TodosCtx = createContext<TodosContextProps | null>(null);
 
 export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
+  useGlobalKey({
+    key: "n",
+    handler: (e) => {
+      const tagName = (e.target as HTMLElement).tagName;
+
+      if (tagName === "INPUT" || tagName === "TEXTAREA") return;
+      e.preventDefault();
+      console.log("n pressed: ", e);
+    },
+  });
+
   const [todos, setTodos] = useState<TodoProps[]>(() => {
     if (typeof window === "undefined") return;
     const raw = localStorage.getItem("todos");
@@ -40,6 +52,10 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
+  const remainingTasks = todos.filter((t) => !t.done).length;
+
+  const completedTasks = todos.filter((t) => t.done).length;
+
   const value = {
     todos,
     setTodos,
@@ -48,6 +64,8 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
     handleAdd,
     handleDelete,
     handleToggle,
+    remainingTasks,
+    completedTasks,
   };
 
   return <TodosCtx.Provider value={value}>{children}</TodosCtx.Provider>;

@@ -25,6 +25,7 @@ const useEdit = () => {
     const key = e?.key;
 
     if (key === "Escape") {
+      e?.preventDefault();
       setIsEditing(false);
       setEditingId(null);
     }
@@ -34,6 +35,7 @@ const useEdit = () => {
     if (text.length < 4 || text === originalItem) {
       setIsEditing(false);
       setEditingId(null);
+      return;
     }
 
     if (text.length >= 4) {

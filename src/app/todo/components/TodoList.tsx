@@ -2,10 +2,11 @@
 
 import { useMemo } from "react";
 import { useTodos } from "@/app/providers/TodosProvider";
+import useEdit from "@/app/hooks/useEdit";
 import { applyFilter } from "@/app/utils/utils";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Button } from "@/components/ui/button";
-import useEdit from "@/app/hooks/useEdit";
+import StatusMessage from "./StatusMessage";
 
 const TodoList = () => {
   const { todos, status, handleToggle, handleDelete } = useTodos();
@@ -19,11 +20,13 @@ const TodoList = () => {
 
   return (
     <div>
-      <ul className="flex flex-col w-full  border-gray-400 rounded-md p-2">
-        {!visibleTodos.length && <>Nothing to display.</>}
+      <ul className="flex flex-col w-full border-gray-400 rounded-md p-2">
+        {!visibleTodos.length && <StatusMessage />}
         {visibleTodos.map(({ item, id, done }) => {
+          const isRowEditing = editingId === id && isEditing;
+
           return (
-            <li className="flex items-center justify-between" key={id}>
+            <li className="flex items-center justify-between gap-2 " key={id}>
               <div className="flex">
                 <Checkbox
                   checked={done}
@@ -32,13 +35,13 @@ const TodoList = () => {
                   className="m-5"
                   onCheckedChange={() => handleToggle(id)}
                 />
-                {editingId === id && isEditing ? (
+                {isRowEditing ? (
                   <input
                     type="text"
                     onChange={(e) => setDraft(e.target.value)}
                     onKeyDown={(e) => handleSave({ id, e })}
                     value={draft}
-                    className="focus: border-1 focus: rounded-md"
+                    className="focus: border-1 focus: rounded-md focus:outline-none focus:ring-2"
                     autoFocus
                   />
                 ) : (
@@ -55,24 +58,24 @@ const TodoList = () => {
               <div className="flex min-w-[160px]">
                 <Button
                   variant="outline"
-                  aria-label="save"
+                  aria-label="edit or save item"
                   onClick={() =>
                     isEditing ? handleSave({ id }) : handleEdit(id)
                   }
                   className="min-w-[80px] px-2"
                 >
-                  {isEditing && editingId === id ? "Save" : "Edit"}
+                  {isRowEditing ? "Save" : "Edit"}
                 </Button>
 
                 <Button
                   variant="outline"
-                  aria-label="remove"
+                  aria-label="cancel edit or delete item"
                   onClick={() => {
                     isEditing ? handleEdit(id) : handleDelete(id);
                   }}
                   className="min-w-[80px] px-2"
                 >
-                  {isEditing && editingId === id ? "Cancel" : "Remove"}
+                  {isRowEditing ? "Cancel" : "Remove"}
                 </Button>
               </div>
             </li>
