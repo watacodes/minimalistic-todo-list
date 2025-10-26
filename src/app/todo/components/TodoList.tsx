@@ -20,42 +20,45 @@ const TodoList = () => {
 
   return (
     <div>
-      <ul className="flex flex-col w-full border-gray-400 rounded-md p-2">
+      <ul className="flex flex-col w-full border-gray-400 rounded-md gap-4">
         {!visibleTodos.length && <StatusMessage />}
         {visibleTodos.map(({ item, id, done }) => {
           const isRowEditing = editingId === id && isEditing;
 
           return (
-            <li className="flex items-center justify-between gap-2 " key={id}>
-              <div className="flex">
+            <li className="flex items-center justify-between" key={id}>
+              <div className="flex items-center">
                 <Checkbox
                   checked={done}
                   name={id}
                   id={id}
-                  className="m-5"
+                  className="h-4 w-4 mx-4"
                   onCheckedChange={() => handleToggle(id)}
                 />
-                {isRowEditing ? (
-                  <input
-                    type="text"
-                    onChange={(e) => setDraft(e.target.value)}
-                    onKeyDown={(e) => handleSave({ id, e })}
-                    value={draft}
-                    className="focus: border-1 focus: rounded-md focus:outline-none focus:ring-2"
-                    autoFocus
-                  />
-                ) : (
-                  <label
-                    htmlFor={id}
-                    className={`flex items-center mr-4 h-max ${
-                      done ? "line-through" : ""
-                    }`}
-                  >
-                    {item}
-                  </label>
-                )}
+                <div>
+                  {isRowEditing ? (
+                    <input
+                      type="text"
+                      onChange={(e) => setDraft(e.target.value)}
+                      onKeyDown={(e) => handleSave({ id, e })}
+                      value={draft}
+                      placeholder={item}
+                      className="flex items-center w-full leading-none focus: border-1 focus: rounded-md text-2xl"
+                      autoFocus
+                    />
+                  ) : (
+                    <label
+                      htmlFor={id}
+                      className={`flex items-center mr-4 text-2xl leading-none ${
+                        done ? "line-through opacity-50" : ""
+                      }`}
+                    >
+                      {item}
+                    </label>
+                  )}
+                </div>
               </div>
-              <div className="flex min-w-[160px]">
+              <div className="flex min-w-[160px] gap-2">
                 <Button
                   variant="outline"
                   aria-label="edit or save item"
@@ -73,7 +76,7 @@ const TodoList = () => {
                   onClick={() => {
                     isEditing ? handleEdit(id) : handleDelete(id);
                   }}
-                  className="min-w-[80px] px-2"
+                  className="min-w-[80px] px-2 focus:outline-none focus:ring-2 focus:ring-offset-2"
                 >
                   {isRowEditing ? "Cancel" : "Remove"}
                 </Button>

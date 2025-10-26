@@ -10,17 +10,17 @@ const FilterButtons = () => {
   };
 
   return (
-    <div>
+    <div className="mb-10">
       <ToggleGroup
         type="single"
         value={status}
         onValueChange={handleStatusChange}
-        className="flex mb-4 w-1/3 rounded-md"
+        className="flex w-1/3 rounded-md"
       >
         <ToggleGroupItem
           variant="outline"
           value="in-progress"
-          className="px-2"
+          className="px-2 data-[state=on]:bg-gray-400"
           aria-label="in progress"
         >
           In Progress
@@ -28,7 +28,7 @@ const FilterButtons = () => {
         <ToggleGroupItem
           variant="outline"
           value="done"
-          className="px-2"
+          className="px-2 data-[state=on]:bg-gray-400"
           aria-label="done"
         >
           Done

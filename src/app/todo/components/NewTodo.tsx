@@ -41,9 +41,9 @@ const NewTodo = () => {
   });
 
   const handleEdit = (text: string) => {
+    console.log(text);
     const todo = text.trim();
-    if (todo.length < 4) return;
-    setNewTask(todo);
+    setNewTask((prev) => todo);
   };
 
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -61,8 +61,8 @@ const NewTodo = () => {
         <input
           type="text"
           id="addTodo"
-          placeholder="add your task... (only >= 4 characters accepted)"
-          className="w-full px-12 py-2 mx-4 border-2 rounded-4xl text-3xl  placeholder-gray-300"
+          placeholder="add your task (only >= 4 characters accepted)"
+          className="w-full px-12 py-2 mx-4 border-2 rounded-4xl text-3xl placeholder-gray-300"
           value={newTask}
           ref={inputRef}
           onChange={(e) => handleEdit(e.target.value)}
@@ -74,7 +74,7 @@ const NewTodo = () => {
         size="lg"
         aria-label="Submit"
         type="submit"
-        className="py-6 font-bold border-2"
+        className="py-6 font-bold border-2 rounded-3xl"
       >
         Add Todo
       </Button>
