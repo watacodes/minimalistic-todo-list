@@ -25,4 +25,5 @@ export type TodosContextProps = {
   handleToggle: (id: string) => void;
   remainingTasks: number;
   completedTasks: number;
+  isAnyTodos?: number;
 };

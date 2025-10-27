@@ -1,5 +1,12 @@
-import { useState, type KeyboardEvent as ReactKeyBoardEvent } from "react";
-import { useTodos } from "../providers/TodosProvider";
+"use client";
+
+import {
+  createContext,
+  useContext,
+  useState,
+  type KeyboardEvent as ReactKeyBoardEvent,
+} from "react";
+import { useTodos } from "./TodosProvider";
 
 type Save = {
   id: string;
@@ -9,7 +16,30 @@ type Save = {
     | undefined;
 };
 
-const useEdit = () => {
+type Ctx = {
+  editingId: string | null;
+  setEditingId: (id: string | null) => void;
+  draft: string;
+  setDraft: (text: string) => void;
+  isEditing: boolean;
+  setIsEditing: (v: boolean) => void;
+  handleSave: ({ id, e }: Save) => void;
+  handleEdit: (id: string) => void;
+  id: string;
+  item: string;
+};
+
+export const RowCtx = createContext<Ctx | null>(null);
+
+export const TodoRowProvider = ({
+  id,
+  item,
+  children,
+}: {
+  id: string;
+  item: string;
+  children: React.ReactNode;
+}) => {
   const { todos, setTodos } = useTodos();
   const [editingId, setEditingId] = useState<string | null>(null);
   const [draft, setDraft] = useState<string>("");
@@ -53,7 +83,7 @@ const useEdit = () => {
     setIsEditing((p) => !p);
   };
 
-  return {
+  const value = {
     editingId,
     setEditingId,
     draft,
@@ -62,7 +92,15 @@ const useEdit = () => {
     setIsEditing,
     handleSave,
     handleEdit,
+    id,
+    item,
   };
+
+  return <RowCtx.Provider value={value}>{children}</RowCtx.Provider>;
 };
 
-export default useEdit;
+export const useRow = () => {
+  const ctx = useContext(RowCtx);
+  if (!ctx) throw new Error("useRow must be used in a RowCtx.Provider");
+  return ctx;
+};

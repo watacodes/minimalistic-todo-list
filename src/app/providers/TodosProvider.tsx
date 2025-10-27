@@ -52,9 +52,10 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
     );
   };
 
-  const remainingTasks = todos.filter((t) => !t.done).length;
+  const remainingTasks = todos?.filter((t) => !t.done).length;
+  const completedTasks = todos?.filter((t) => t.done).length;
 
-  const completedTasks = todos.filter((t) => t.done).length;
+  const isAnyTodos = todos?.length;
 
   const value = {
     todos,
@@ -66,6 +67,7 @@ export const TodosProvider = ({ children }: { children: React.ReactNode }) => {
     handleToggle,
     remainingTasks,
     completedTasks,
+    isAnyTodos,
   };
 
   return <TodosCtx.Provider value={value}>{children}</TodosCtx.Provider>;

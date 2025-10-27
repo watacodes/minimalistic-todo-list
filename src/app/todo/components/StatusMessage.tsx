@@ -1,7 +1,7 @@
 import { useTodos } from "@/app/providers/TodosProvider";
 
 const StatusMessage = () => {
-  const { remainingTasks, completedTasks } = useTodos();
+  const { remainingTasks } = useTodos();
 
   return (
     <div className="flex items-center justify-center w-full p-10 text-4xl">
